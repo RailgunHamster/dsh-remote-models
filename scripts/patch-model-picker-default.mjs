@@ -9,8 +9,8 @@
  * dsh upgrade reinstalls the package.
  *
  * Usage:
- *   node tools/patch-model-picker-default.mjs [path/to/client.js]
- *   node tools/patch-model-picker-default.mjs --revert
+ *   node scripts/patch-model-picker-default.mjs [path/to/client.js]
+ *   node scripts/patch-model-picker-default.mjs --revert
  */
 import fs from 'node:fs';
 import path from 'node:path';

@@ -1,6 +1,6 @@
 {
   "name": "dsh-remote-models",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Automatically synchronize custom model providers from a remote JSON document.",
   "type": "module",
   "main": "lib/index.js",
