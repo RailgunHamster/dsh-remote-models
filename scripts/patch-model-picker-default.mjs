@@ -31,14 +31,35 @@ const args = process.argv.slice(2);
 const revert = args.includes('--revert');
 const candidates = args.filter(arg => !arg.startsWith('--'));
 
-function resolveTarget() {
-  if (candidates.length) return candidates[0];
+function npmGlobalRoot() {
+  // `npm` is a .cmd shim on Windows, so execFileSync without a shell cannot run
+  // it; the shell form keeps this working on both platforms.
   try {
-    const root = execFileSync('npm', ['root', '-g'], { encoding: 'utf8' }).trim();
-    return path.join(root, PKG);
+    const [command, args] = process.platform === 'win32'
+      ? [process.env.ComSpec ?? 'cmd.exe', ['/d', '/c', 'npm root -g']]
+      : ['sh', ['-c', 'npm root -g']];
+    return execFileSync(command, args, { encoding: 'utf8', windowsHide: true }).trim();
   } catch {
     return '';
   }
+}
+
+function globalRoots() {
+  return [
+    process.env.DSH_GLOBAL_ROOT,
+    process.env.APPDATA ? path.join(process.env.APPDATA, 'npm', 'node_modules') : '',
+    npmGlobalRoot(),
+    process.env.ProgramFiles ? path.join(process.env.ProgramFiles, 'nodejs', 'node_modules') : '',
+  ].filter(Boolean);
+}
+
+function resolveTarget() {
+  if (candidates.length) return candidates[0];
+  for (const root of globalRoots()) {
+    const full = path.join(root, PKG);
+    if (fs.existsSync(full)) return full;
+  }
+  return '';
 }
 
 function count(haystack, needle) {
