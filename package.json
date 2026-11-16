@@ -1,0 +1,27 @@
+{
+  "name": "dsh-remote-models",
+  "version": "0.2.5",
+  "description": "Automatically synchronize custom model providers from a remote JSON document.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "locale", "icon.svg", "cordis.patch.yml", "examples", "README.md", "LICENSE"],
+  "scripts": { "test": "node --test test/*.test.mjs" },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": { "platform": "web", "inject": ["@deepseek-ai/dsh-client-ui-settings-models", "@deepseek-ai/dsh-client-locale", "@deepseek-ai/dsh-api-remotes"] }
+  },
+  "peerDependencies": { "@deepseek-ai/cordis": "~4.1.0", "@deepseek-ai/schemastery": "^3.18.4" },
+  "engines": { "node": ">=24.9.0" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/RailgunHamster/dsh-remote-models.git" },
+  "homepage": "https://github.com/RailgunHamster/dsh-remote-models#readme",
+  "bugs": { "url": "https://github.com/RailgunHamster/dsh-remote-models/issues" },
+  "keywords": ["dsh", "deepseek-harness", "cordis", "plugin", "models", "webdav"]
+}

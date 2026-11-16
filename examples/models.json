@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "providers": {
+    "personal-gateway": {
+      "displayName": "Personal gateway",
+      "api": "openai-completions",
+      "baseURL": "https://gateway.example/v1",
+      "apiKeyEnv": "PERSONAL_GATEWAY_API_KEY",
+      "models": [{ "id": "example-model", "contextWindow": 131072, "maxTokens": 32768, "input": ["text"] }]
+    }
+  },
+  "modelThresholds": [
+    { "provider": "personal-gateway", "model": "example-model", "thresholdRatio": 0.7 }
+  ]
+}

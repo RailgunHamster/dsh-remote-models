@@ -1,0 +1,9 @@
+node_modules/
+*.tgz
+*.local.*
+coverage/
+.DS_Store
+Thumbs.db
+
+# Private deployment and diagnostics: hostnames, credentials, logs, captured state.
+tools/
